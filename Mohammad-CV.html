@@ -55,19 +55,21 @@
 
 <section id="certifications">
     <h2>Certifications</h2>
-    <p>Click on a certification field to view the certificate:</p>
+    <p>Click on a certification field to view the certificates:</p>
     <ul class="cert-list">
-        <li><a href="#" class="cert-link" data-cert="cert1.jpg">Certification 1</a></li>
-        <li><a href="#" class="cert-link" data-cert="cert2.jpg">Certification 2</a></li>
-        <li><a href="#" class="cert-link" data-cert="cert3.jpg">Certification 3</a></li>
-        <li><a href="#" class="cert-link" data-cert="cert4.jpg">Certification 4</a></li>
-        <li><a href="#" class="cert-link" data-cert="cert5.jpg">Certification 5</a></li>
-        <li><a href="#" class="cert-link" data-cert="cert6.jpg">Certification 6</a></li>
-        <li><a href="#" class="cert-link" data-cert="cert7.jpg">Certification 7</a></li>
-        <li><a href="#" class="cert-link" data-cert="cert8.jpg">Certification 8</a></li>
-        <li><a href="#" class="cert-link" data-cert="cert9.jpg">Certification 9</a></li>
-        <li><a href="#" class="cert-link" data-cert="cert10.jpg">Certification 10</a></li>
+        <li><a href="#" class="cert-link" data-cert-images="cert1.jpg,cert2.jpg,cert3.jpg">Certification 1</a></li>
+        <li><a href="#" class="cert-link" data-cert-images="cert4.jpg,cert5.jpg">Certification 2</a></li>
+        <li><a href="#" class="cert-link" data-cert-images="cert6.jpg,cert7.jpg,cert8.jpg,cert9.jpg">Certification 3</a></li>
     </ul>
+
+    <!-- Modal structure -->
+    <div id="cert-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <div id="cert-images-container" class="cert-images-container"></div>
+        </div>
+    </div>
+</section>
 
     <!-- Modal structure -->
     <div id="cert-modal" class="modal">
