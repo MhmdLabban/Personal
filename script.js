@@ -11,14 +11,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Modal functionality for certifications
     const certLinks = document.querySelectorAll('.cert-link');
     const modal = document.getElementById('cert-modal');
-    const modalImg = document.getElementById('cert-img');
+    const certImagesContainer = document.getElementById('cert-images-container');
     const closeBtn = document.querySelector('.close-btn');
 
     certLinks.forEach(link => {
         link.addEventListener('click', e => {
             e.preventDefault();
-            const certSrc = link.getAttribute('data-cert');
-            modalImg.src = certSrc;
+
+            // Clear previous images
+            certImagesContainer.innerHTML = '';
+
+            // Get certificate images from the data attribute
+            const certImages = link.getAttribute('data-cert-images').split(',');
+
+            // Create and append image elements to the container
+            certImages.forEach(src => {
+                const img = document.createElement('img');
+                img.src = src.trim();
+                img.alt = 'Certificate';
+                certImagesContainer.appendChild(img);
+            });
+
             modal.style.display = 'flex';
         });
     });
