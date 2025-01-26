@@ -115,6 +115,10 @@ footer {
     max-width: 100%;
     height: auto;
     border-radius: 5px;
+    transition: transform 0.3s ease;
+}
+.modal-content img:hover {
+    transform: scale(1.05);
 }
 .close-btn {
     position: absolute;
@@ -127,4 +131,12 @@ footer {
 }
 .close-btn:hover {
     color: #f0a500;
+}
+
+/* Grid for Multiple Certificates */
+.cert-images-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1em;
+    padding: 1em;
 }
