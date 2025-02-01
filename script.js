@@ -8,28 +8,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Modal functionality for certifications
+    // Modal functionality for certifications (PDFs)
     const certLinks = document.querySelectorAll('.cert-link');
     const modal = document.getElementById('cert-modal');
-    const certImagesContainer = document.getElementById('cert-images-container');
+    const certPdfContainer = document.getElementById('cert-pdf-container');
     const closeBtn = document.querySelector('.close-btn');
 
     certLinks.forEach(link => {
         link.addEventListener('click', e => {
             e.preventDefault();
 
-            // Clear previous images
-            certImagesContainer.innerHTML = '';
+            // Clear previous PDFs
+            certPdfContainer.innerHTML = '';
 
-            // Get certificate images from the data attribute
-            const certImages = link.getAttribute('data-cert-images').split(',');
+            // Get certificate PDFs from the data attribute
+            const certPdfs = link.getAttribute('data-cert-pdfs').split(',');
 
-            // Create and append image elements to the container
-            certImages.forEach(src => {
-                const img = document.createElement('img');
-                img.src = src.trim();
-                img.alt = 'Certificate';
-                certImagesContainer.appendChild(img);
+            // Create and append iframes for each PDF
+            certPdfs.forEach(src => {
+                const iframe = document.createElement('iframe');
+                iframe.src = src.trim();
+                iframe.alt = 'Certificate PDF';
+                certPdfContainer.appendChild(iframe);
             });
 
             modal.style.display = 'flex';
