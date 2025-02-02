@@ -1,14 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const links = document.querySelectorAll('nav ul li a');
-    links.forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute('href'));
-            target.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-
-    // Modal functionality for certifications (PDFs)
     const certLinks = document.querySelectorAll('.cert-link');
     const modal = document.getElementById('cert-modal');
     const certPdfContainer = document.getElementById('cert-pdf-container');
@@ -16,8 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     certLinks.forEach(link => {
         link.addEventListener('click', e => {
-            e.preventDefault(); // Stop link from redirecting
-            console.log("Certification clicked!"); // Debugging log
+            e.preventDefault();
 
             // Clear previous PDFs
             certPdfContainer.innerHTML = '';
@@ -29,14 +18,22 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
-            // Display PDFs inside modal
+            // Create and append iframes for each PDF
             certPdfs.forEach(src => {
-                console.log("Loading PDF:", src.trim()); // Debugging log
                 const iframe = document.createElement('iframe');
                 iframe.src = src.trim();
                 iframe.alt = 'Certificate PDF';
-                iframe.style.width = '100%';
-                iframe.style.height = window.innerWidth <= 480 ? '50vh' : (window.innerWidth <= 768 ? '60vh' : '80vh');
+
+                // 🛠️ Dynamically adjust PDF size based on screen width
+                if (window.innerWidth <= 480) {
+                    iframe.style.height = '50vh'; // Mobile screens
+                } else if (window.innerWidth <= 768) {
+                    iframe.style.height = '60vh'; // Tablets
+                } else {
+                    iframe.style.height = '80vh'; // Desktop
+                }
+
+                iframe.style.width = '100%'; // Always full width
                 certPdfContainer.appendChild(iframe);
             });
 
@@ -45,13 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     closeBtn.addEventListener('click', () => {
-        console.log("Closing modal"); // Debugging log
         modal.style.display = 'none';
     });
 
     window.addEventListener('click', e => {
         if (e.target === modal) {
-            console.log("Click outside modal - closing"); // Debugging log
             modal.style.display = 'none';
         }
     });
