@@ -16,21 +16,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
     certLinks.forEach(link => {
         link.addEventListener('click', e => {
-            e.preventDefault();
+            e.preventDefault(); // Stop link from redirecting
+            console.log("Certification clicked!"); // Debugging log
 
             // Clear previous PDFs
             certPdfContainer.innerHTML = '';
 
             // Get certificate PDFs from the data attribute
-            const certPdfs = link.getAttribute('data-cert-pdfs').split(',');
+            const certPdfs = link.getAttribute('data-cert-pdfs')?.split(',');
+            if (!certPdfs) {
+                console.error("No PDFs found for this certification.");
+                return;
+            }
 
-            // Create and append iframes for each PDF
+            // Display PDFs inside modal
             certPdfs.forEach(src => {
+                console.log("Loading PDF:", src.trim()); // Debugging log
                 const iframe = document.createElement('iframe');
                 iframe.src = src.trim();
                 iframe.alt = 'Certificate PDF';
                 iframe.style.width = '100%';
-                iframe.style.height = window.innerWidth <= 480 ? '50vh' : (window.innerWidth <= 768 ? '60vh' : '80vh'); // Adjust height for mobile
+                iframe.style.height = window.innerWidth <= 480 ? '50vh' : (window.innerWidth <= 768 ? '60vh' : '80vh');
                 certPdfContainer.appendChild(iframe);
             });
 
@@ -39,11 +45,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     closeBtn.addEventListener('click', () => {
+        console.log("Closing modal"); // Debugging log
         modal.style.display = 'none';
     });
 
     window.addEventListener('click', e => {
         if (e.target === modal) {
+            console.log("Click outside modal - closing"); // Debugging log
             modal.style.display = 'none';
         }
     });
