@@ -1,48 +1,26 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const links = document.querySelectorAll('nav ul li a');
-    links.forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute('href'));
-            target.scrollIntoView({ behavior: 'smooth' });
+document.addEventListener("DOMContentLoaded", function () {
+    // Open Modal
+    document.querySelectorAll(".cert-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            let modal = document.getElementById("certificateModal");
+            let pdfFrame = document.getElementById("certPdf");
+
+            // Update the PDF source dynamically
+            pdfFrame.src = this.dataset.pdf;
+
+            modal.style.display = "flex";
         });
     });
 
-    // Modal functionality for certifications (PDFs)
-    const certLinks = document.querySelectorAll('.cert-link');
-    const modal = document.getElementById('cert-modal');
-    const certPdfContainer = document.getElementById('cert-pdf-container');
-    const closeBtn = document.querySelector('.close-btn');
+    // Close Modal
+    document.querySelector(".close-btn").addEventListener("click", function () {
+        document.getElementById("certificateModal").style.display = "none";
+    });
 
-    certLinks.forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-
-            // Clear previous PDFs
-            certPdfContainer.innerHTML = '';
-
-            // Get certificate PDFs from the data attribute
-            const certPdfs = link.getAttribute('data-cert-pdfs').split(',');
-
-            // Create and append iframes for each PDF
-            certPdfs.forEach(src => {
-                const iframe = document.createElement('iframe');
-                iframe.src = src.trim();
-                iframe.alt = 'Certificate PDF';
-                certPdfContainer.appendChild(iframe);
-            });
-
-            modal.style.display = 'flex';
+    // Fix Mobile Download Button Issue
+    document.querySelectorAll(".download-btn").forEach(button => {
+        button.addEventListener("click", function (event) {
+            event.stopPropagation(); // Prevent interference from modal or overlays
         });
-    });
-
-    closeBtn.addEventListener('click', () => {
-        modal.style.display = 'none';
-    });
-
-    window.addEventListener('click', e => {
-        if (e.target === modal) {
-            modal.style.display = 'none';
-        }
     });
 });
