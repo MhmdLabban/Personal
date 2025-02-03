@@ -1,14 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const links = document.querySelectorAll('nav ul li a');
-    links.forEach(link => {
-        link.addEventListener('click', e => {
-            e.preventDefault();
-            const target = document.querySelector(link.getAttribute('href'));
-            target.scrollIntoView({ behavior: 'smooth' });
-        });
-    });
-
-    // Modal functionality for certifications (PDFs)
     const certLinks = document.querySelectorAll('.cert-link');
     const modal = document.getElementById('cert-modal');
     const certPdfContainer = document.getElementById('cert-pdf-container');
@@ -22,15 +12,28 @@ document.addEventListener('DOMContentLoaded', () => {
             certPdfContainer.innerHTML = '';
 
             // Get certificate PDFs from the data attribute
-            const certPdfs = link.getAttribute('data-cert-pdfs').split(',');
+            const certPdfs = link.getAttribute('data-cert-pdfs')?.split(',');
+            if (!certPdfs) {
+                console.error("No PDFs found for this certification.");
+                return;
+            }
 
             // Create and append iframes for each PDF
             certPdfs.forEach(src => {
                 const iframe = document.createElement('iframe');
                 iframe.src = src.trim();
                 iframe.alt = 'Certificate PDF';
-                iframe.style.width = '100%';
-                iframe.style.height = window.innerWidth <= 480 ? '50vh' : (window.innerWidth <= 768 ? '60vh' : '80vh'); // Adjust height for mobile
+
+                // 🛠️ Dynamically adjust PDF size based on screen width
+                if (window.innerWidth <= 480) {
+                    iframe.style.height = '50vh'; // Mobile screens
+                } else if (window.innerWidth <= 768) {
+                    iframe.style.height = '55vh'; // Tablets
+                } else {
+                    iframe.style.height = '60vh'; // Desktop
+                }
+
+                iframe.style.width = '100%'; // Always full width
                 certPdfContainer.appendChild(iframe);
             });
 
