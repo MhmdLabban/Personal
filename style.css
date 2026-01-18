@@ -205,7 +205,7 @@ body {
   padding: 10px;
   font-size: 24px;
   cursor: pointer;
-  z-index: 1000;
+  z-index: 2001; /* FIXED — ensures button is above sidebar */
 }
 
 /* Animations */
@@ -255,4 +255,3 @@ body.dark .sidebar nav ul li a:hover { color: #6fb1fc; }
 .cta-buttons .btn {
   margin: 0 0.5rem;
 }
-
